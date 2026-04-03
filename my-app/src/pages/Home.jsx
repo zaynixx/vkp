@@ -6,7 +6,6 @@ import TechnologySection from '../components/home/TechnologySection';
 import ProcessSection from '../components/home/ProcessSection';
 import VideoSection from '../components/home/VideoSection';
 import ResultsSection from '../components/home/ResultsSection';
-import SeoContentSection from '../components/home/SeoContentSection';
 import IndustriesSection from '../components/home/IndustriesSection';
 import WarrantySection from '../components/home/WarrantySection';
 import PartnersSection from '../components/home/PartnersSection';
@@ -28,7 +27,6 @@ export default function Home() {
           <ProcessSection />
           <VideoSection />
           <ResultsSection />
-          <SeoContentSection />
           <IndustriesSection />
           <WarrantySection />
           <PartnersSection />
