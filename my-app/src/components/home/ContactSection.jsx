@@ -28,8 +28,8 @@ export default function ContactSection() {
     {
       icon: Phone,
       label: t.contact.phone,
-      value: '+380 93 668 9068',
-      href: 'tel:+380936689068',
+      value: '+380 93 031 3777',
+      href: 'tel:+380930313777',
     },
   ];
 
