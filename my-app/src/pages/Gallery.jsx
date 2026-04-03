@@ -80,22 +80,6 @@ export default function Gallery() {
           ))}
         </div>
 
-        <div className="max-w-4xl mt-16 text-gray-400 leading-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-            Heavy-Duty Crankshaft Repair and Restoration Examples
-          </h2>
-          <p className="mb-5">
-            This gallery shows real examples of crankshaft restoration work, including damaged surfaces before repair,
-            electric arc metallization of crankshaft journals, machining, grinding, polishing, and the final condition
-            after restoration. These images help demonstrate the production capabilities behind our crankshaft repair
-            service for marine diesel engines and locomotive equipment.
-          </p>
-          <p>
-            For companies searching for crankshaft repair photos, crankshaft restoration examples, marine diesel
-            crankshaft recovery, or locomotive crankshaft rebuilding, this page provides a visual record of the process
-            and finished result.
-          </p>
-        </div>
       </div>
 
       {/* Lightbox */}
