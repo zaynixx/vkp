@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
@@ -6,6 +6,17 @@ import { Button } from "@/components/ui/button";
 
 export default function ContactSection() {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    message: '',
+  });
+  const [status, setStatus] = useState({
+    type: 'idle',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const contactInfo = [
     {
@@ -21,6 +32,63 @@ export default function ContactSection() {
       href: 'tel:+380936689068',
     },
   ];
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((current) => ({
+      ...current,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setStatus({
+        type: 'error',
+        message: 'Please fill in your name, email, and request details.',
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus({ type: 'idle', message: '' });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send your request.');
+      }
+
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        message: '',
+      });
+      setStatus({
+        type: 'success',
+        message: 'Request sent successfully. We will contact you soon.',
+      });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: error.message || 'Failed to send your request.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-24 bg-gradient-to-b from-[#1a1a1a] to-[#222]">
@@ -75,31 +143,52 @@ export default function ContactSection() {
               Send us details about your crankshaft and we'll provide you with a comprehensive restoration quote.
             </p>
             
-            <div className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
+                name="name"
                 placeholder="Your Name"
+                value={formData.name}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-[#1a1a1a] text-white placeholder-gray-500 border-none focus:outline-none focus:ring-2 focus:ring-white"
               />
               <input
                 type="email"
+                name="email"
                 placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-[#1a1a1a] text-white placeholder-gray-500 border-none focus:outline-none focus:ring-2 focus:ring-white"
               />
               <input
                 type="text"
+                name="company"
                 placeholder="Company"
+                value={formData.company}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-[#1a1a1a] text-white placeholder-gray-500 border-none focus:outline-none focus:ring-2 focus:ring-white"
               />
               <textarea
+                name="message"
                 placeholder="Describe your crankshaft and requirements"
                 rows={4}
+                value={formData.message}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-[#1a1a1a] text-white placeholder-gray-500 border-none focus:outline-none focus:ring-2 focus:ring-white resize-none"
               />
-              <Button className="w-full bg-[#1a1a1a] hover:bg-[#333] text-white py-6 text-lg font-semibold rounded-none">
-                Send Request
+              {status.message ? (
+                <p className={`text-sm ${status.type === 'success' ? 'text-[#1a1a1a]' : 'text-red-900'}`}>
+                  {status.message}
+                </p>
+              ) : null}
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-[#1a1a1a] hover:bg-[#333] text-white py-6 text-lg font-semibold rounded-none disabled:opacity-70"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Request'}
               </Button>
-            </div>
+            </form>
           </motion.div>
         </div>
       </div>
