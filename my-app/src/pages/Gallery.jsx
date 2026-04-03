@@ -50,6 +50,11 @@ export default function Gallery() {
       <div className="py-16 text-center px-4">
         <span className="text-[#c9a227] text-sm tracking-[0.3em] uppercase">Our Work</span>
         <h1 className="text-4xl md:text-5xl font-bold text-white mt-4 mb-6">Gallery</h1>
+        <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+          Explore crankshaft restoration projects completed by Alliance Group, including electric arc metallization,
+          precision grinding, polishing, inspection, and final recovery of heavy-duty crankshafts for marine diesel and
+          locomotive engines.
+        </p>
         <div className="w-24 h-1 bg-[#c9a227] mx-auto" />
       </div>
 
@@ -73,6 +78,23 @@ export default function Gallery() {
               />
             </motion.div>
           ))}
+        </div>
+
+        <div className="max-w-4xl mt-16 text-gray-400 leading-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+            Heavy-Duty Crankshaft Repair and Restoration Examples
+          </h2>
+          <p className="mb-5">
+            This gallery shows real examples of crankshaft restoration work, including damaged surfaces before repair,
+            electric arc metallization of crankshaft journals, machining, grinding, polishing, and the final condition
+            after restoration. These images help demonstrate the production capabilities behind our crankshaft repair
+            service for marine diesel engines and locomotive equipment.
+          </p>
+          <p>
+            For companies searching for crankshaft repair photos, crankshaft restoration examples, marine diesel
+            crankshaft recovery, or locomotive crankshaft rebuilding, this page provides a visual record of the process
+            and finished result.
+          </p>
         </div>
       </div>
 
