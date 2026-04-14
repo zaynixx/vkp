@@ -5,6 +5,21 @@ import { createAxiosClient } from '@base44/sdk/dist/utils/axios-client';
 
 const AuthContext = createContext();
 
+const getSafeReturnUrl = () => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  const url = new URL(window.location.href);
+  const authNoiseParams = ['access_token', 'from_url', 'clear_access_token'];
+
+  authNoiseParams.forEach((param) => {
+    url.searchParams.delete(param);
+  });
+
+  return `${url.origin}${url.pathname}${url.search}${url.hash}`;
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -116,7 +131,7 @@ export const AuthProvider = ({ children }) => {
     
     if (shouldRedirect) {
       // Use the SDK's logout method which handles token cleanup and redirect
-      base44.auth.logout(window.location.href);
+      base44.auth.logout(getSafeReturnUrl());
     } else {
       // Just remove the token without redirect
       base44.auth.logout();
@@ -125,7 +140,7 @@ export const AuthProvider = ({ children }) => {
 
   const navigateToLogin = () => {
     // Use the SDK's redirectToLogin method
-    base44.auth.redirectToLogin(window.location.href);
+    base44.auth.redirectToLogin(getSafeReturnUrl());
   };
 
   return (
